@@ -22,6 +22,9 @@ Bunny Hopper
 
 Uses recursion to determine the paths a hopping bunny could take to go N distance.
 
+I did create an alternate version which uses loops, but it is MUCH slower. (And far less readible.)
+I will be removing in a future commit.
+
 Usage: 
 ```
 python BunnyHopper.py N
