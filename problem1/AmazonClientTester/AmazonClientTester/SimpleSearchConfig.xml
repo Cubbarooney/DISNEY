@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TestCaseConfig>
+  <URL>https://www.amazon.com</URL>
+  <SearchTerm>Steam Train O Scale</SearchTerm>
+  <ExpectedResults>
+    <AmazonItem>
+      <Name>Expected to pass (If Visible)</Name>
+      <Description>Bachmann Trains - White Pass &amp; Yukon Passenger Ready To Run Electric Train Set - On30 Scale - Runs on HO Track</Description>
+      <ExpectedDollars>323</ExpectedDollars>
+      <ExpectedCents>73</ExpectedCents>
+      <ExpectedSymbol>$</ExpectedSymbol>
+    </AmazonItem>
+    <AmazonItem>
+      <Name>Failure on Price</Name>
+      <Description>Williams By Bachmann - BALDWIN 4-6-0 STEAM LOCOMOTIVE - CHESAPEAKE &amp; OHIO - O Scale</Description>
+      <Price>$284.98</Price>
+      <ExpectedDollars>284</ExpectedDollars>
+      <ExpectedCents>98</ExpectedCents>
+      <ExpectedSymbol>$</ExpectedSymbol>
+    </AmazonItem>
+    <AmazonItem>
+      <Name>Failure on Description</Name>
+      <Description>LGB Industries General Motors GP 38 Scale Diesel Locomotive Santa Fe 2372 O Scale Train</Description>
+      <Price>$257.41</Price>
+      <ExpectedDollars>257</ExpectedDollars>
+      <ExpectedCents>41</ExpectedCents>
+      <ExpectedSymbol>$</ExpectedSymbol>
+    </AmazonItem>
+    <AmazonItem>
+      <Name>Expected to Pass (If Visible)</Name>
+      <Description>Bachmann Industries General Motors GP 38 Scale Diesel Locomotive Santa Fe 2372 O Scale Train</Description>
+      <Price>$257.41</Price>
+      <ExpectedDollars>257</ExpectedDollars>
+      <ExpectedCents>41</ExpectedCents>
+      <ExpectedSymbol>$</ExpectedSymbol>
+    </AmazonItem>
+  </ExpectedResults>
+</TestCaseConfig>
