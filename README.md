@@ -1,6 +1,8 @@
 # DISNEY
 
-Disney Interview Software (rest of acronym to come later)
+By: Jacob "Cubby" Rubenstein
+
+Disney Interview Software (rest of acronym to come... eventually)
 
 ## Problem 1
 
@@ -32,10 +34,7 @@ On a completely unrelated note, I just need to share this random comment I found
 
 Bunny Hopper
 
-Uses recursion to determine the paths a hopping bunny could take to go N distance.
-
-I did create an alternate version which uses loops, but it is MUCH slower. (And far less readible.)
-I will be removing in a future commit.
+Uses recursion to determine the paths a hopping bunny could take to go N distance. Running as a script will print the result to the console.
 
 Usage: 
 ```
@@ -43,3 +42,6 @@ python BunnyHopper.py N
 ```
 Where N is the distance the bunny should travel
 (Assumes 'python' is on the path)
+
+*Alternatively*, the function bunnyHops(n) can be imported and run seperately. It takes in an integer, much like the script.
+Running it this way just returns the result of bunnyHops(n) instead of printing it to the console.
