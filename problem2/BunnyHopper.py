@@ -1,9 +1,12 @@
+import sys
+
 def bunnyHops(n):
     hops = bunnyHopsHelper([], n)
-    print("n=" + str(n))
-    print("len=" + str(len(hops)))
-    for h in hops:
-        print(h)
+    # print("n=" + str(n))
+    # print("len=" + str(len(hops)))
+    # for h in hops:
+    #     print(h)
+    return len(hops)
 
 def bunnyHopsHelper(hops, n):
     # Base Case: Finished
@@ -24,9 +27,13 @@ def bunnyHopsHelper(hops, n):
 
 
 if __name__ == "__main__":
-    bunnyHops(1)
-    bunnyHops(2)
-    bunnyHops(3)
-    bunnyHops(4)
-    bunnyHops(5)
-    bunnyHops(6)
+    correct_usage = "\n\tCorrect usage:\n\t\tpython BunnyHopper.py N\n\t\t(Where N is an int representing the distance to check)"
+    if(len(sys.argv) < 2):
+        print("Error: You need to pass in a value." + correct_usage)
+    elif(len(sys.argv) > 2):
+        print("Error: Too many arguments." + correct_usage)
+    else:
+        try:
+            print(bunnyHops(int(sys.argv[1])))
+        except ValueError:
+            print("Error: Cannot parse `" + sys.argv[1] + "` into an integer" + correct_usage)

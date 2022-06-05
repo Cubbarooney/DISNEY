@@ -19,9 +19,7 @@ Uses recursion to determine the paths a hopping bunny could take to go N distanc
 
 Usage: 
 ```
-python BunnyHopper.py
+python BunnyHopper.py N
 ```
+Where N is the distance the bunny should travel
 (Assumes 'python' is on the path)
-
-To-Do: Pass in value instead of just using hardcoded 1 - 6
-To-Do: Per email w/ Poojita, the function should return the number of possible paths
