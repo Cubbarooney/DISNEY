@@ -16,15 +16,15 @@ namespace AmazonClientTester
         /// </summary>
         /// <param name="filename">Filepath to open</param>
         /// <returns>TestCaseConfig deserialized from the file</returns>
-        public static TestCaseConfig OpenTestCaseConfig(string filename)
+        public static T OpenTestCaseConfig<T>(string filename)
         {
-            var serializer = new XmlSerializer(typeof(TestCaseConfig));
+            var serializer = new XmlSerializer(typeof(T));
             using (var stream = new StreamReader(filename))
             {
                 // Ideally, we should do some error checking to validate the file
                 // However, in the interest of time, I have omitted that.
                 var obj = serializer.Deserialize(stream);
-                return (TestCaseConfig)obj;
+                return (T)obj;
             }
         }
     }

@@ -12,9 +12,11 @@ Implemented Tests:
         - Uses a config file that contains the URL and the expected results
         - Some of the results in the config file are designed to fail
             - This was done partially because I noticed that the searches are not consistent. (I assume this is because of the cache)
+    - Input Invalid Password
+        - **N.B.**: Sometimes Amazon requires the user to input a captcha after inputing the password. To handle that, the test will pause for a minute to let the user input the captcha. If it isn't inputted in time, it won't work.
 **N.B.**: This project requires that GeckoDriver is installed on the PATH. GeckoDriver can be downloaded here: https://github.com/mozilla/geckodriver/releases
 
-To-Do: Failed Password and Add Item to Cart tests
+To-Do: Add Item to Cart test
 To-Do (if time permits): Add a Try/Catch arround using the GeckoDriver. Possibly use other browsers, or just straight-up fail the tests requiring GeckoDriver. 
 
 ## Problem 2

@@ -42,21 +42,22 @@ namespace AmazonClientTester
         [Test]
         public void SimpleSearch()
         {
-            var xpathToResultSpan = "//span[@data-component-type='s-search-results']";
-            var xpathToAllResults = $"//div[contains(@cel_widget_id, 'MAIN-SEARCH_RESULTS')]";
+            var xpathToResultSpan = ".//span[@data-component-type='s-search-results']";
+            var xpathToAllResults = $".//div[contains(@cel_widget_id, 'MAIN-SEARCH_RESULTS')]";
             var configDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // Likely would have a config file that defines all the input files for tests.
             // For simplicity sake, it is hardcoded in this example.
             var configFile = "SimpleSearchConfig.xml";
-            var config = TestCaseConfigReader.OpenTestCaseConfig(Path.Combine(configDirectory, configFile));
+            var config = TestCaseConfigReader.OpenTestCaseConfig<TestCaseConfig>(Path.Combine(configDirectory, configFile));
 
             // Navigate to the website
             _driver.Url = config.URL;
             // Search for the param
             SearchAmazon(config.SearchTerm);
 
+            // TODO: This can probably be combined with _driver.FindElements(By.Xpath(xpathTOAllResults));
             // Wait until the results are visible. This span contains all of the results, as well as other data...
-            var wait = new WebDriverWait(_driver, TimeSpan.FromMinutes(2));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromMinutes(1));
             var result = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath(xpathToResultSpan)));
 
             // Get the list of Results
@@ -123,7 +124,62 @@ namespace AmazonClientTester
         [Test]
         public void InvalidPassword()
         {
+            var configDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var configFile = "IncorrectPasswordConfig.xml";
+            var config = TestCaseConfigReader.OpenTestCaseConfig<PasswordTestCaseConfig>(Path.Combine(configDirectory, configFile));
+            var wait = new WebDriverWait(_driver, TimeSpan.FromMinutes(1));
 
+            _driver.Url = config.URL;
+            // In my experiments, this button usually needs to be clicked first. But sometimes it doesn't appear.
+            var yourAccountElement = _driver.FindElements(By.XPath(".//a[contains(text(),'Your Account')]"));
+            if (yourAccountElement.Count > 0)
+            {
+                // If we found any <a> tags with the text "Your Account", click it. Otherwise, carry on.
+                yourAccountElement[0].Click();
+            }
+
+            var signInPageLink = _driver.FindElement(By.Id("nav-link-accountList"));
+            signInPageLink.Click();
+
+            var usernameField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("ap_email")));
+            usernameField.SendKeys(config.Username);
+            usernameField.Submit();
+
+            var passwordField = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("ap_password")));
+            passwordField.SendKeys(config.Password);
+            passwordField.Submit();
+
+
+            IWebElement authErrorBox = null;
+            try
+            {
+                authErrorBox = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("auth-error-message-box")));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // This might be because there is a security box. Wait another minute and let the user deal with it, hopefully.
+                System.Threading.Thread.Sleep(TimeSpan.FromMinutes(1));
+                var captcha = _driver.FindElement(By.Id("auth-captcha-guess"));
+                if (!string.IsNullOrEmpty(captcha.GetAttribute("value")))
+                {
+                    passwordField = _driver.FindElement(By.Id("ap_password"));
+                    passwordField.SendKeys(config.Password);
+                    passwordField.Submit();
+
+                    var temp = wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//*[contains(text(),'Your password is incorrect')]")));
+                    authErrorBox = _driver.FindElement(By.Id("auth-error-message-box"));
+                }
+            }
+
+            Assert.NotNull(authErrorBox, "Could not find the Authentication Error Box");
+            Assert.Multiple(() =>
+            {
+                var header = authErrorBox.FindElement(By.ClassName("a-alert-heading")).Text;
+                var content = authErrorBox.FindElement(By.ClassName("a-alert-content")).Text;
+
+                Assert.That(header, Is.EqualTo("There was a problem"));
+                Assert.That(content, Is.EqualTo("Your password is incorrect"));
+            });
         }
 
         private void SearchAmazon(string searchTerm)
