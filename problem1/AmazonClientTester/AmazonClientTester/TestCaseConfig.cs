@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace AmazonClientTester
 {
-    public class TestCaseConfig
+    public abstract class TestCaseConfig
     {
         public string URL { get; set; }
+    }
+
+    public class ExpectedItemsTestCaseConfig : TestCaseConfig
+    {
         public string SearchTerm { get; set; }
         public List<AmazonItem> ExpectedResults { get; set; } = new List<AmazonItem>();
     }
@@ -22,9 +26,14 @@ namespace AmazonClientTester
         public string Name { get; set; }
     }
 
-    public class PasswordTestCaseConfig
+    public class ItemInCartConfig : TestCaseConfig
     {
-        public string URL { get; set; }
+        public string ItemName { get; set; }
+        public string SearchTerm { get; set; }
+    }
+
+    public class PasswordTestCaseConfig : TestCaseConfig
+    {
         public string Username { get; set; }
         public string Password { get; set; }
     }

@@ -14,10 +14,14 @@ Implemented Tests:
             - This was done partially because I noticed that the searches are not consistent. (I assume this is because of the cache)
     - Input Invalid Password
         - **N.B.**: Sometimes Amazon requires the user to input a captcha after inputing the password. To handle that, the test will pause for a minute to let the user input the captcha. If it isn't inputted in time, it won't work.
+    - Item to Cart Test
+        - Searches for an item, adds it the the cart, and verifies that the item is in the cart
 **N.B.**: This project requires that GeckoDriver is installed on the PATH. GeckoDriver can be downloaded here: https://github.com/mozilla/geckodriver/releases
 
-To-Do: Add Item to Cart test
-To-Do (if time permits): Add a Try/Catch arround using the GeckoDriver. Possibly use other browsers, or just straight-up fail the tests requiring GeckoDriver. 
+On a completely unrelated note, I just need to share this random bit I found in Amazon's DOM:
+    _
+.__(.)< (MEOW)
+ \___)
 
 ## Problem 2
 Bunny Hopper

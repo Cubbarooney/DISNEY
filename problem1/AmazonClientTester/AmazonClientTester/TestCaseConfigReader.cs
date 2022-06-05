@@ -16,7 +16,7 @@ namespace AmazonClientTester
         /// </summary>
         /// <param name="filename">Filepath to open</param>
         /// <returns>TestCaseConfig deserialized from the file</returns>
-        public static T OpenTestCaseConfig<T>(string filename)
+        public static T OpenTestCaseConfig<T>(string filename) where T : TestCaseConfig
         {
             var serializer = new XmlSerializer(typeof(T));
             using (var stream = new StreamReader(filename))
