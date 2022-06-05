@@ -41,7 +41,7 @@ namespace AmazonClientTester
         /// Test: Add a test case for doing a simple search on Amazon.com and verifying that correct results are shown
         /// </summary>
         [Test]
-        public void SimpleSearch()
+        public void SimpleSearch_SomeFailures()
         {
             // Likely would have a config file that defines all the input files for tests.
             // For simplicity sake, it is hardcoded in this example.
@@ -67,9 +67,9 @@ namespace AmazonClientTester
         [Test]
         public void ItemInCart()
         {
-            var configDirectory = GetAssemblyDirectory();
             var configFile = "ItemInCartConfig.xml";
-            var config = TestCaseConfigReader.OpenTestCaseConfig<ItemInCartConfig>(Path.Combine(configDirectory, configFile));
+            var configFilepath = GetConfigFilepath(configFile);
+            var config = TestCaseConfigReader.OpenTestCaseConfig<ItemInCartConfig>(configFilepath);
 
             _driver.Url = config.URL;
             var wait = new WebDriverWait(_driver, TimeSpan.FromMinutes(1));
@@ -123,9 +123,9 @@ namespace AmazonClientTester
         [Test]
         public void InvalidPassword()
         {
-            var configDirectory = GetAssemblyDirectory();
             var configFile = "IncorrectPasswordConfig.xml";
-            var config = TestCaseConfigReader.OpenTestCaseConfig<PasswordTestCaseConfig>(Path.Combine(configDirectory, configFile));
+            var configFilepath = GetConfigFilepath(configFile);
+            var config = TestCaseConfigReader.OpenTestCaseConfig<PasswordTestCaseConfig>(configFilepath);
             var wait = new WebDriverWait(_driver, TimeSpan.FromMinutes(1));
 
             _driver.Url = config.URL;
@@ -216,8 +216,8 @@ namespace AmazonClientTester
         /// <param name="configFilename"></param>
         private void DoSearchTest(string configFilename)
         {
-            var configDirectory = GetAssemblyDirectory();
-            var config = TestCaseConfigReader.OpenTestCaseConfig<ExpectedItemsTestCaseConfig>(Path.Combine(configDirectory, configFilename));
+            var configFilepath = GetConfigFilepath(configFilename);
+            var config = TestCaseConfigReader.OpenTestCaseConfig<ExpectedItemsTestCaseConfig>(configFilepath);
 
             // Navigate to the website
             _driver.Url = config.URL;
@@ -278,9 +278,9 @@ namespace AmazonClientTester
         /// Gets the path to the Executing Directory. Used to get the test configs.
         /// </summary>
         /// <returns>string path to the Executing Directory</returns>
-        private string GetAssemblyDirectory()
+        public static string GetConfigFilepath(string configFile)
         {
-            return Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "ConfigFiles", configFile);
         }
 
         [TearDown]

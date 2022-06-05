@@ -62,22 +62,22 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SimpleSearchConfig.xml">
+    <EmbeddedResource Include="ConfigFiles\SimpleSearchConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="IncorrectPasswordConfig.xml">
+    <EmbeddedResource Include="ConfigFiles\IncorrectPasswordConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SimpleSearchConfig_AllPassing.xml">
+    <EmbeddedResource Include="ConfigFiles\SimpleSearchConfig_AllPassing.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ItemInCartConfig.xml">
+    <EmbeddedResource Include="ConfigFiles\ItemInCartConfig.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
