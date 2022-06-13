@@ -2,7 +2,9 @@
 
 By: Jacob "Cubby" Rubenstein
 
-Disney Interview Software (rest of acronym to come... eventually)
+Disney Interview Software -- New Employee (YAY!)
+
+Not the best back-ronym I've come up with... but it works, I think!
 
 ## Problem 1
 
