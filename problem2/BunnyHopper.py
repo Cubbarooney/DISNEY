@@ -1,29 +1,30 @@
 import sys
 
-# Given n, find how many unique combinations of hops the bunny can take
-# This method uses recursion to slowly build out all the possible answers
 def bunnyHops(n):
-    hops = bunnyHopsHelper([], n)
-    return len(hops)
-
-def bunnyHopsHelper(hops, n):
-    # Base Case: Finished
-    #   (n is zero, meaning the bunny traveled the entire distance!)
+    # Base Cases
     if n == 0:
-        return [hops]
-    else:
-        # list of possible answers
-        ret_hops = []
-        # Try adding either 1, 2, or 3 hops to the current list of hops
-        for i in range(1, 4):
-            # But only if we can still add i
-            if n - i >= 0:
-                new_hops = hops.copy()
-                new_hops.append(i)
-                result = bunnyHopsHelper(new_hops, n - i)
-                # add results to our list of possible answers
-                ret_hops.extend(result)
-        return ret_hops
+        return 0
+    if n == 1:
+        return 1
+    if n == 2:
+        return 2
+    if n == 3:
+        return 4
+    
+    # Starting at n == 4, these are the last three values
+    # This list will only ever contain the last three values computed,
+    # meaning it will function as a queue
+    lastThree = [4, 2, 1]
+    i = 3
+    # Until we've calculated all the values up to n...
+    while i < n:
+        sum = lastThree[0] + lastThree[1] + lastThree[2]
+        # remove lastThree[2] (the oldest value)...
+        lastThree.pop()
+        # ... and add the new value!
+        lastThree.insert(0, sum)
+        i += 1
+    return lastThree[0]
 
 if __name__ == "__main__":
     correct_usage = "\n\tCorrect usage:\n\t\tpython BunnyHopper.py N\n\t\t(Where N is an int representing the distance to check)"
@@ -33,7 +34,6 @@ if __name__ == "__main__":
         print("Error: Too many arguments." + correct_usage)
     else:
         try:
-            print("Recursive Method:")
             sum = bunnyHops(int(sys.argv[1]))
             print(sum)
         except ValueError:
